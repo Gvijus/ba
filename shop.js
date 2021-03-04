@@ -45,7 +45,7 @@ async function example() {
 	}
 	moveElement = await driver.findElement(By.css(".ajax_cart_quantity:nth-child(2)"));
 	await actions.move({origin:moveElement}).perform();
-	await sleep(500);
+	await sleep(1000);
 	await driver.findElement(By.css("#button_order_cart > span")).click();
 	await driver.findElement(By.css(".standard-checkout > span")).click();
 	await driver.findElement(By.id("email")).sendKeys("test@test.lt");
