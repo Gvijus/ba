@@ -17,14 +17,19 @@ async function example() {
 	var items = 0;
 	await driver.findElement(By.id("search_query_top")).sendKeys("Printed Summer Dres");
 	await driver.findElement(By.name("submit_search")).click();
+	
 	var searchResult = await driver.findElement(By.css(".heading-counter")).getText();
+	var searchItem = await driver.findElement(By.css(".first-in-line .product-name")).getText();
 	await driver.findElements(By.css(".product-container")).then(elements => items = elements.length);
 	searchResult = searchResult.match(pattern);
-	console.log("Search itemes:");
+	console.log("Search items:");
+	assertStrictEquality(searchItem, "Printed Summer Dress");
+	console.log("Search result:");
 	assertStrictEquality(parseInt(searchResult), items);
+	
 	let moveElement = await driver.findElement(By.xpath("//div[@id='center_column']/ul/li[1]/div/div[2]/span/span"));
-	await actions.move({origin:moveElement}).perform();                                                                 // Ðitoj vietoj reiktu palyte nustumpti á kampa, kadangi su JS neiðeina fiziðkai palytæs pustumti.
-	await driver.findElement(By.xpath("//div[@id='center_column']/ul/li[1]/div/div[2]/div[2]/a/span")).click();			// Atsiranda klaida, jei  testavimo metu pelyte bus ant to elemento iðmes klaida. Su java butu galima padaryti.
+	await actions.move({origin:moveElement}).perform();                                                                 // Å itoj vietoj reiktu palyte nustumpti Ä¯ kampa, kadangi su JS neiÅ¡eina fiziÅ¡kai palytÄ™s pustumti.
+	await driver.findElement(By.xpath("//div[@id='center_column']/ul/li[1]/div/div[2]/div[2]/a/span")).click();			// Atsiranda klaida, jei  testavimo metu pelyte bus ant to elemento iÅ¡mes klaida. Su java butu galima padaryti.
 	await sleep(1000);
 	await driver.findElement(By.css(".cross")).click();
 	var cart = await driver.findElement(By.css(".ajax_cart_quantity:nth-child(2)")).getText();
